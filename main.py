@@ -10,6 +10,7 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
 import os
+import psycopg2
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -22,9 +23,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yieuprvdxqfcfq:541eca1b2377a29ba14d9f31bd00cc2d9d1c1e0d0ee1a55b42938ee44b9c84a1@ec2-52-44-209-165.compute-1.amazonaws.com:5432/d9smbafglo7tqu'
+psycopg2.connect(database='blog.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yieuprvdxqfcfq:541eca1b2377a29ba14d9f31bd00cc2d9d1c1e0d0ee1a55b42938ee44b9c84a1@ec2-52-44-209-165.compute-1.amazonaws.com:5432/d9smbafglo7tqu'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
