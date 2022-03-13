@@ -28,7 +28,7 @@ login_manager.init_app(app)
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+# app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
