@@ -10,11 +10,10 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
 import os
-import psycopg2
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
@@ -24,9 +23,8 @@ login_manager.init_app(app)
 
 # CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-psycopg2.connect(database='blog.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yieuprvdxqfcfq:541eca1b2377a29ba14d9f31bd00cc2d9d1c1e0d0ee1a55b42938ee44b9c84a1@ec2-52-44-209-165.compute-1.amazonaws.com:5432/d9smbafglo7tqu'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yieuprvdxqfcfq:541eca1b2377a29ba14d9f31bd00cc2d9d1c1e0d0ee1a55b42938ee44b9c84a1@ec2-52-44-209-165.compute-1.amazonaws.com:5432/d9smbafglo7tqu'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -262,5 +260,5 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
-    # app.run(host='0.0.0.0', port=5000)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
